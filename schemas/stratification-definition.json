@@ -1,0 +1,202 @@
+{
+  "type": "object",
+  "properties": {
+    "settings": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "groupby": {
+          "description": "one or more comma-separated formulas, each defining how to calculate the next grouping level e.g. [Pool]",
+          "$ref": "#/definitions/formula"
+        },
+        "groupbyname": {
+          "description": "if groupby is provided and groupbyname is provided, the corresponding groupbyname formula is used to determine the value that is displayed e.g. 'Pool ' + [Pool]",
+          "$ref": "#/definitions/formula"
+        },
+        "where": {
+          "description": "if provided, for each input row, the row will only be included in this strat if this formula evaluates to true (1)",
+          "$ref": "#/definitions/formula"
+        }
+      }
+    },
+    "columns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "sum",
+              "weighted avg",
+              "percent",
+              "non-zero weighted average",
+              "max",
+              "min",
+              "first",
+              "last",
+              "cumulative sum",
+              "cumulative percent"
+            ]
+          },
+          "finalize": {
+            "description": "final calculation using the post-aggregated values. Column name references resolve to strat values in this row of the report, not to values in each row of the underlying data (e.g. [Weighted Avg FICO])",
+            "$ref": "#/definitions/formula"
+          },
+          "hidden": {
+            "type": "boolean"
+          },
+          "display": {
+            "description": "formula defining how this column's calculated value is displayed or printed",
+            "$ref": "#/definitions/formula"
+          },
+          "aggregation": {
+            "description": "only applicable if type != 'strat'",
+            "$ref": "#/definitions/aggregation_stat"
+          }
+        }
+      }
+    },
+    "tables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "data_type": {
+            "description": "alternatively, 'datatype'",
+            "$ref": "#/definitions/data_type"
+          },
+          "title": {
+            "description": "table title",
+            "$ref": "#/definitions/formula"
+          },
+          "name": {
+            "type": "string"
+          },
+          "validation_set": {
+            "description": "if this is a validation table, name of the related validation set. cannot be used together with a `value` formula",
+            "type": "string"
+          },
+          "having": {
+            "description": "formula to limit displayed rows displayed (other rows will be lumped into \"other\") e.g. env(\"rownum\") < 12",
+            "$ref": "#/definitions/formula"
+          },
+          "value": {
+            "description": "formula defining how the rows of this table are calculated e.g. `[Pool]`. Cannot be used together with a validation_set name",
+            "$ref": "#/definitions/formula"
+          },
+          "display": {
+            "description": "for non-validation tables, formula used for display purposes e.g. `'Pool ' + []`",
+            "$ref": "#/definitions/formula"
+          },
+          "where": {
+            "$ref": "#/definitions/formula"
+          },
+          "sort": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/definitions/order_by"
+            }
+          },
+          "footnote": {
+            "$ref": "#/definitions/formula"
+          }
+        }
+      }
+    },
+    "statistics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "display": {
+            "$ref": "#/definitions/formula"
+          },
+          "value": {
+            "$ref": "#/definitions/formula"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "formula": {
+      "type": "string",
+      "nullable": true,
+      "description": "a `sket` formula e.g. `\"hello\"` or `dateadd(\"m\", 1, [Origination Date])`"
+    },
+    "aggregation_stat": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "sum",
+            "weighted avg",
+            "percent",
+            "non-zero weighted avg",
+            "max",
+            "min",
+            "first",
+            "last",
+            "stdev"
+          ]
+        },
+        "numerator": {
+          "$ref": "#/definitions/formula"
+        },
+        "denominator": {
+          "$ref": "#/definitions/formula"
+        },
+        "where": {
+          "$ref": "#/definitions/formula"
+        }
+      }
+    },
+    "data_type": {
+      "description": "Data type: (N)umber, (D)ate, (B)oolean, (T)ext or (S)tring. T and S are equivalent",
+      "enum": [
+        "N",
+        "D",
+        "B",
+        "T",
+        "S",
+        "",
+        "number",
+        "date",
+        "boolean",
+        "text",
+        "string",
+        null
+      ]
+    },
+    "order_by": {
+      "type": "object",
+      "required": [
+        "by"
+      ],
+      "properties": {
+        "by": {
+          "description": "value to order by",
+          "$ref": "#/definitions/formula"
+        },
+        "desc": {
+          "description": "if true, sorts in descending order"
+        },
+        "nulldesc": {
+          "description": "if true, sort will put nulls last"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "columns": [
+    {
+      "name": "Count",
+      "type": "sum",
+      "aggregation": {
+        "type": "sum",
+        "numerator": "1"
+      },
+      "display": "format([], \"#,##0\")"
+    },
+    {
+      "name": "Sum of population",
+      "type": "sum",
+      "aggregation": {
+        "type": "sum",
+        "numerator": "*.[population]"
+      },
+      "display": "format([], \"#,##0\")"
+    },
+    {
+      "name": "population (%)",
+      "type": "percent",
+      "aggregation": {
+        "type": "percent",
+        "numerator": "*.[population]",
+        "denominator": "*.[population]"
+      },
+      "display": "format([]*100, \"0.00\")"
+    },
+    {
+      "name": "Doses_admin (% population)",
+      "type": "weighted avg",
+      "aggregation": {
+        "type": "weighted avg",
+        "numerator": "*.[Doses_admin] / *.[population]",
+        "denominator": "*.[population]"
+      },
+      "display": "format([]*100, \"0.00\")"
+    },
+    {
+      "name": "Partially vaccinated (% population)",
+      "type": "weighted avg",
+      "aggregation": {
+        "type": "weighted avg",
+        "numerator": "*.[People_partially_vaccinated] / *.[population]",
+        "denominator": "*.[population]"
+      },
+      "display": "format([]*100, \"0.00\")"
+    },
+    {
+      "name": "Fully Vaccinated (% population)",
+      "type": "weighted avg",
+      "aggregation": {
+        "type": "weighted avg",
+        "numerator": "*.[People_fully_vaccinated] / *.[population]",
+        "denominator": "*.[population]"
+      },
+      "display": "format([]*100, \"0.00\")"
+    },
+    {
+      "name": "Fully Vaccinated",
+      "type": "sum",
+      "aggregation": {
+        "type": "sum",
+        "numerator": "*.[People_fully_vaccinated]"
+      },
+      "display": "format([], \"#,##0\")"
+    }
+  ],
+  "tables": [
+    {
+      "name": "Continent_Name",
+      "data_type": "S",
+      "value": "*.[Continent_Name]",
+      "having": "env(\"rownum\") < 12",
+      "sort": [
+        {
+          "by": "[Sum of population]",
+          "desc": 1,
+          "nulldesc": 1
+        }
+      ]
+    },
+    {
+      "name": "Country_Region",
+      "data_type": "S",
+      "value": "*.[Country_Region]",
+      "sort": [
+        {
+          "by": "[Sum of population]",
+          "desc": 1,
+          "nulldesc": 1
+        }
+      ]
+    }
+  ]
+}
