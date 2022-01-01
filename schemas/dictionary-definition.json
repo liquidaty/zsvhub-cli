@@ -1,0 +1,136 @@
+{
+  "description": "Dictionary for this domain",
+  "type": "object",
+  "additionalProperties": {
+    "description": "A column in this dictionary; object key is the dictionary column name",
+    "type": "object",
+    "properties": {
+      "name": {
+        "$ref": "#/definitions/dictionary_column_name"
+      },
+      "is_asset_id": {
+        "type": "boolean",
+        "description": "true if this column is the designated identifier for this domain"
+      },
+      "description": {
+        "type": "string",
+        "description": "Description of this dictionary column"
+      },
+      "data_type": {
+        "$ref": "#/definitions/data_type"
+      },
+      "definition": {
+        "description": "optional formulaic definition/binding",
+        "$ref": "#/definitions/formula"
+      },
+      "display": {
+        "description": "formula defining how this column's calculated value is displayed or printed",
+        "$ref": "#/definitions/formula"
+      },
+      "format": {
+        "description": "Format string to apply when printing this column value. If both format and display are provided, this value is ignored",
+        "$ref": "#/definitions/format_string"
+      },
+      "validation": {
+        "$ref": "#/definitions/column_validation"
+      }
+    }
+  },
+  "definitions": {
+    "dictionary_column_name": {
+      "description": "Case-insensitive name, which is also the unique identifier, of a column in this domain dictionary",
+      "type": "string"
+    },
+    "data_type": {
+      "description": "Data type: (N)umber, (D)ate, (B)oolean, (T)ext or (S)tring. T and S are equivalent",
+      "enum": [
+        "N",
+        "D",
+        "B",
+        "T",
+        "S",
+        "",
+        "number",
+        "date",
+        "boolean",
+        "text",
+        "string",
+        null
+      ]
+    },
+    "formula": {
+      "type": "string",
+      "nullable": true,
+      "description": "a `sket` formula e.g. `\"hello\"` or `dateadd(\"m\", 1, [Origination Date])`"
+    },
+    "format_string": {
+      "type": "string",
+      "description": "number or date format string, such as would be used by the excel or openoffice TEXT() function",
+      "examples": {
+        "commas": {
+          "value": "#,##0"
+        },
+        "dollars and cents": {
+          "value": "$0.00"
+        },
+        "date: yyyy/mm/dd": {
+          "value": "yyyy/mm/dd"
+        }
+      }
+    },
+    "column_validation": {
+      "nullable": true,
+      "type": "object",
+      "properties": {
+        "required": {
+          "description": "Value in this column should be non-blank if `required` is true",
+          "type": "boolean"
+        },
+        "required_when": {
+          "description": "Value in this column should be non-blank when this formula evaluates to true",
+          "$ref": "#/definitions/formula"
+        },
+        "blank_when": {
+          "description": "Value in this column should be blank when this formula evaluates to true",
+          "$ref": "#/definitions/formula"
+        },
+        "range": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": [
+            {
+              "description": "Minimum value that each value in this column should be greater than or equal to",
+              "$comment": "to consider: allow string type ranges e.g. 'A', 'Z'",
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "$ref": "#/definitions/date"
+                }
+              ]
+            },
+            {
+              "description": "Maximum value that each value in this column should be less than or equal to",
+              "$ref": "#/definitions/scalar"
+            }
+          ]
+        },
+        "formula": {
+          "description": "Custom formula evaluated as a boolean that returns true for valid data",
+          "$ref": "#/definitions/formula"
+        },
+        "sub_type": {
+          "description": "data sub-type",
+          "enum": [
+            "int"
+          ]
+        },
+        "limit_to_list": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

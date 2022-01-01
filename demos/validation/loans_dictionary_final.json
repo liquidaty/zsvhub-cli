@@ -1,0 +1,1425 @@
+{
+  "Loan Id": {
+    "examples": [
+      "7191073",
+      "7191075",
+      "7191076",
+      "7191077",
+      "7191079"
+    ],
+    "is_asset_id": true,
+    "definition": "*.[Loan Id]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1
+    }
+  },
+  "As Of Date": {
+    "examples": [
+      "8/1/2007"
+    ],
+    "definition": "*.[As Of Date]",
+    "datatype": "date",
+    "validation": {
+      "required": 1
+    }
+  },
+  "Original Balance": {
+    "examples": [
+      "160000",
+      "310500",
+      "140700",
+      "172500",
+      "110000"
+    ],
+    "definition": "*.[Original Balance]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        40000,
+        331334.55
+      ]
+    }
+  },
+  "Principal Balance": {
+    "examples": [
+      "158552.72",
+      "308843.77",
+      "140700",
+      "169222.73",
+      "108045.12"
+    ],
+    "definition": "*.[Principal Balance]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        16052.79,
+        328074.47
+      ]
+    }
+  },
+  "Actual Balance": {
+    "examples": [
+      "158552.72",
+      "308952.28",
+      "140700",
+      "169391.41",
+      "108142.15"
+    ],
+    "definition": "*.[Actual Balance]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        16052.79,
+        328187.79
+      ]
+    }
+  },
+  "Scheduled Balance": {
+    "examples": [
+      "158552.72",
+      "308843.77",
+      "140700",
+      "169222.73",
+      "108045.12"
+    ],
+    "definition": "*.[Scheduled Balance]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        16052.79,
+        328074.47
+      ]
+    }
+  },
+  "Orig. Sched. P&I": {
+    "examples": [
+      "1322.09",
+      "2075.51",
+      "967.31",
+      "1107.39",
+      "750.39"
+    ],
+    "definition": "*.[Orig. Sched. P&I]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "formula": "abs(1 - []/if([Interest Only Term] > 0, [Original Rate]/1200 * [Original Balance], pmt([Original Rate]/1200,[Original Amortization Term],[Original Balance]))) < 0.01",
+      "range": [
+        304.96,
+        2299.63
+      ]
+    }
+  },
+  "Sched. P&I": {
+    "examples": [
+      "1322.09",
+      "2075.51",
+      "967.31",
+      "1107.39",
+      "750.39"
+    ],
+    "definition": "*.[Sched. P&I]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        334.47,
+        2349.15
+      ]
+    }
+  },
+  "Original Rate": {
+    "examples": [
+      "9.3",
+      "7.64",
+      "8.25",
+      "6.65",
+      "7.25"
+    ],
+    "definition": "*.[Original Rate]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        5.5732,
+        10.1026
+      ]
+    }
+  },
+  "Current Rate": {
+    "examples": [
+      "9.3",
+      "7.64",
+      "8.25",
+      "6.65",
+      "7.25"
+    ],
+    "definition": "*.[Current Rate]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        5.625,
+        10.5547
+      ]
+    }
+  },
+  "Net Rate": {
+    "examples": [
+      "8.79",
+      "7.13",
+      "7.74",
+      "6.14",
+      "6.74"
+    ],
+    "definition": "*.[Net Rate]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        5.115,
+        10.0447
+      ]
+    }
+  },
+  "Original Amortization Term": {
+    "examples": [
+      "360",
+      "480",
+      "168",
+      "336",
+      "180"
+    ],
+    "definition": "*.[Original Amortization Term]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "range": [
+        179,
+        480
+      ]
+    }
+  },
+  "Origination Date": {
+    "examples": [
+      "5/10/2006",
+      "3/17/2006",
+      "10/22/2005",
+      "5/30/2006",
+      "11/10/2005"
+    ],
+    "definition": "*.[Origination Date]",
+    "datatype": "date",
+    "validation": {
+      "required": 1,
+      "range": [
+        "2004-03-26",
+        "2006-12-12"
+      ]
+    }
+  },
+  "First Dayment Date": {
+    "examples": [
+      "7/1/2006",
+      "4/22/2006",
+      "12/1/2005",
+      "1/1/2006",
+      "4/1/2006"
+    ],
+    "definition": "*.[First Dayment Date]",
+    "datatype": "date",
+    "validation": {
+      "required": 1,
+      "range": [
+        "2004-05-01",
+        "2007-02-01"
+      ]
+    }
+  },
+  "Maturity Date": {
+    "examples": [
+      "6/1/2036",
+      "3/22/2036",
+      "11/1/2035",
+      "12/1/2035",
+      "3/1/2046"
+    ],
+    "definition": "*.[Maturity Date]",
+    "datatype": "date",
+    "validation": {
+      "required": 1,
+      "range": [
+        "1990-08-16",
+        "2037-01-01"
+      ]
+    }
+  },
+  "Loan Age": {
+    "examples": [
+      "14",
+      "16",
+      "21",
+      "20",
+      "17"
+    ],
+    "definition": "*.[Loan Age]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "range": [
+        7,
+        40
+      ]
+    }
+  },
+  "Original Term": {
+    "examples": [
+      "360",
+      "480",
+      "168",
+      "336",
+      "180"
+    ],
+    "definition": "*.[Original Term]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "range": [
+        192,
+        480
+      ]
+    }
+  },
+  "Remaining Term": {
+    "examples": [
+      "346",
+      "344",
+      "339",
+      "340",
+      "463"
+    ],
+    "definition": "*.[Remaining Term]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "range": [
+        161,
+        472
+      ]
+    }
+  },
+  "Paid Through Date": {
+    "examples": [
+      "8/1/2007",
+      "6/22/2007",
+      "7/1/2007",
+      "7/18/2007",
+      "7/6/2007"
+    ],
+    "definition": "*.[Paid Through Date]",
+    "datatype": "date",
+    "validation": {
+      "required": 1,
+      "range": [
+        "2007-06-06",
+        "2007-08-07"
+      ]
+    }
+  },
+  "Appraisal Value": {
+    "examples": [
+      "263000",
+      "345000",
+      "161000",
+      "253000",
+      "260000"
+    ],
+    "definition": "*.[Appraisal Value]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "range": [
+        50000,
+        461687
+      ]
+    }
+  },
+  "Sales Price": {
+    "examples": [
+      "0",
+      "179200",
+      "125000",
+      "292400",
+      "151000"
+    ],
+    "definition": "*.[Sales Price]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        328250.2
+      ]
+    }
+  },
+  "Updated Value": {
+    "examples": [
+      "312000",
+      "325000",
+      "175000",
+      "216000",
+      "169000"
+    ],
+    "definition": "*.[Updated Value]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "range": [
+        50000,
+        493669
+      ]
+    }
+  },
+  "Original LTV": {
+    "examples": [
+      "60.84",
+      "90",
+      "87.39",
+      "68.18",
+      "42.31"
+    ],
+    "definition": "*.[Original LTV]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        43.75,
+        100
+      ]
+    }
+  },
+  "Comb. Orig. LTV Incl. Silent Seconds": {
+    "examples": [
+      "60.84",
+      "90",
+      "87.39",
+      "68.18",
+      "42.31"
+    ],
+    "definition": "*.[Comb. Orig. LTV Incl. Silent Seconds]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        42.2,
+        100
+      ]
+    }
+  },
+  "Updated Current LTV": {
+    "examples": [
+      "50.82",
+      "95.03",
+      "80.4",
+      "78.34",
+      "63.93"
+    ],
+    "definition": "*.[Updated Current LTV]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        32.01,
+        100
+      ]
+    }
+  },
+  "Updated Combined Current LTV Incl. Silent Seconds": {
+    "examples": [
+      "50.82",
+      "95.03",
+      "80.4",
+      "78.34",
+      "63.93"
+    ],
+    "definition": "*.[Updated Combined Current LTV Incl. Silent Seconds]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        31.43,
+        117.57
+      ]
+    }
+  },
+  "Senior Lien Balance": {
+    "examples": [
+      "0"
+    ],
+    "definition": "*.[Senior Lien Balance]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "limit_to_list": [
+        "0"
+      ]
+    }
+  },
+  "Subordinate Lien Balance": {
+    "examples": [
+      "0",
+      "35840",
+      "50800",
+      "25000",
+      "69006.5"
+    ],
+    "definition": "*.[Subordinate Lien Balance]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        54336.85
+      ]
+    }
+  },
+  "Silent Seconds Flag": {
+    "examples": [
+      "N",
+      "Y"
+    ],
+    "definition": "*.[Silent Seconds Flag]",
+    "datatype": "boolean",
+    "validation": {
+      "required": 1
+    }
+  },
+  "City": {
+    "examples": [
+      "AMHERST",
+      "EAST LONGMEADOW",
+      "FEEDING HILLS",
+      "HADLEY",
+      "HOLYOKE"
+    ],
+    "definition": "*.[City]",
+    "datatype": "text",
+    "validation": {
+      "required": 1,
+      "length": [
+        3,
+        32
+      ]
+    }
+  },
+  "State": {
+    "examples": [
+      "MA",
+      "RI",
+      "NH",
+      "ME",
+      "VT"
+    ],
+    "definition": "*.[State]",
+    "datatype": "text",
+    "validation": {
+      "required": 1,
+      "limit_to_list": [
+        "ak",
+        "al",
+        "ar",
+        "az",
+        "ca",
+        "co",
+        "ct",
+        "dc",
+        "de",
+        "fl",
+        "ga",
+        "hi",
+        "ia",
+        "id",
+        "il",
+        "in",
+        "ks",
+        "ky",
+        "la",
+        "ma",
+        "md",
+        "me",
+        "mi",
+        "mn",
+        "mo",
+        "ms",
+        "mt",
+        "nc",
+        "nd",
+        "ne",
+        "nh",
+        "nj",
+        "nm",
+        "nv",
+        "ny",
+        "oh",
+        "ok",
+        "or",
+        "pa",
+        "ri",
+        "sc",
+        "sd",
+        "tn",
+        "tx",
+        "ut",
+        "va",
+        "vt",
+        "wa",
+        "wi",
+        "wv",
+        "wy"
+      ]
+    }
+  },
+  "Zip Code": {
+    "examples": [
+      "1002",
+      "1028",
+      "1030",
+      "1035",
+      "1040"
+    ],
+    "definition": "*.[Zip Code]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required_when": "[State] = null",
+      "required": 1,
+      "range": [
+        1002,
+        99654
+      ]
+    }
+  },
+  "Debt To Income Ratio": {
+    "examples": [
+      "25",
+      "48",
+      "38",
+      "49",
+      "43"
+    ],
+    "definition": "*.[Debt To Income Ratio]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        15.5,
+        54.9
+      ]
+    }
+  },
+  "Self Employ Flag": {
+    "examples": [
+      "Y",
+      "N"
+    ],
+    "definition": "*.[Self Employ Flag]",
+    "datatype": "boolean",
+    "validation": {
+      "required": 1
+    }
+  },
+  "First Time Home Buyer Flag": {
+    "examples": [
+      "N",
+      "Y"
+    ],
+    "definition": "*.[First Time Home Buyer Flag]",
+    "datatype": "boolean",
+    "validation": {
+      "required": 1
+    }
+  },
+  "Original Fico Score": {
+    "examples": [
+      "616",
+      "670",
+      "694",
+      "721",
+      "743"
+    ],
+    "definition": "*.[Original Fico Score]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "range": [
+        520,
+        773
+      ]
+    }
+  },
+  "Current Fico Score": {
+    "examples": [
+      "585",
+      "671",
+      "621",
+      "742",
+      "721"
+    ],
+    "definition": "*.[Current Fico Score]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "range": [
+        552,
+        800
+      ]
+    }
+  },
+  "Collateral Group": {
+    "examples": [
+      "NONE"
+    ],
+    "definition": "*.[Collateral Group]",
+    "datatype": "boolean",
+    "validation": {
+      "required": 1
+    }
+  },
+  "Borrower Monthly Income": {
+    "examples": [
+      "10468.78",
+      "5120",
+      "2939",
+      "5802.57",
+      "2300"
+    ],
+    "definition": "*.[Borrower Monthly Income]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        38268.27
+      ]
+    }
+  },
+  "Interest Only Term": {
+    "examples": [
+      "0",
+      "60",
+      "24",
+      "36",
+      "120"
+    ],
+    "definition": "*.[Interest Only Term]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        70
+      ],
+      "limit_to_list": [
+        "0",
+        "120",
+        "24",
+        "36",
+        "60"
+      ]
+    }
+  },
+  "Property lien": {
+    "examples": [
+      "1"
+    ],
+    "definition": "*.[Property lien]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "limit_to_list": [
+        "1"
+      ]
+    }
+  },
+  "Prepayment Penalty Term": {
+    "examples": [
+      "0",
+      "36",
+      "12",
+      "24",
+      "30"
+    ],
+    "definition": "*.[Prepayment Penalty Term]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        36
+      ],
+      "limit_to_list": [
+        "0",
+        "12",
+        "18",
+        "24",
+        "30",
+        "36",
+        "6"
+      ]
+    }
+  },
+  "Prepayment Penalty Description": {
+    "examples": [
+      "3MOINT",
+      "2PER",
+      "5PER",
+      "1PER",
+      "6MOINT"
+    ],
+    "definition": "*.[Prepayment Penalty Description]",
+    "datatype": "text",
+    "validation": {
+      "length": [
+        4,
+        10
+      ]
+    }
+  },
+  "Initial Cap": {
+    "examples": [
+      "2",
+      "3",
+      "0",
+      "1.5",
+      "1"
+    ],
+    "definition": "*.[Initial Cap]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        4.654
+      ]
+    }
+  },
+  "Periodic Cap": {
+    "examples": [
+      "1",
+      "0",
+      "1.5",
+      "2"
+    ],
+    "definition": "*.[Periodic Cap]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        2
+      ]
+    }
+  },
+  "Lifetime Cap": {
+    "examples": [
+      "6",
+      "0",
+      "7",
+      "7.995",
+      "6.5"
+    ],
+    "definition": "*.[Lifetime Cap]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        7.995
+      ]
+    }
+  },
+  "First Rate Adjustment Period": {
+    "examples": [
+      "24",
+      "0",
+      "36",
+      "60",
+      "23"
+    ],
+    "definition": "*.[First Rate Adjustment Period]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        50
+      ],
+      "limit_to_list": [
+        "0",
+        "23",
+        "24",
+        "36",
+        "6",
+        "60"
+      ]
+    }
+  },
+  "First Payment Adjustment Period": {
+    "examples": [
+      "25",
+      "0",
+      "37",
+      "61",
+      "24"
+    ],
+    "definition": "*.[First Payment Adjustment Period]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        52
+      ],
+      "limit_to_list": [
+        "0",
+        "24",
+        "25",
+        "37",
+        "61",
+        "7"
+      ]
+    }
+  },
+  "Months To Rate Reset": {
+    "examples": [
+      "10",
+      "8",
+      "3",
+      "0",
+      "22"
+    ],
+    "definition": "*.[Months To Rate Reset]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        22
+      ]
+    }
+  },
+  "Months To Payment Reset": {
+    "examples": [
+      "11",
+      "9",
+      "4",
+      "0",
+      "23"
+    ],
+    "definition": "*.[Months To Payment Reset]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        23
+      ]
+    }
+  },
+  "First Rate Change Date": {
+    "examples": [
+      "6/1/2008",
+      "3/22/2008",
+      "11/1/2007",
+      "6/1/2009",
+      "3/1/2008"
+    ],
+    "definition": "*.[First Rate Change Date]",
+    "datatype": "date",
+    "validation": {
+      "range": [
+        "2006-03-23",
+        "2010-02-24"
+      ]
+    }
+  },
+  "First Payment Change Date": {
+    "examples": [
+      "7/1/2008",
+      "4/22/2008",
+      "12/1/2007",
+      "7/1/2009",
+      "4/1/2008"
+    ],
+    "definition": "*.[First Payment Change Date]",
+    "datatype": "date",
+    "validation": {
+      "range": [
+        "2006-04-23",
+        "2010-03-27"
+      ]
+    }
+  },
+  "Next Rate Change Date": {
+    "examples": [
+      "6/1/2008",
+      "3/22/2008",
+      "11/1/2007",
+      "6/1/2009",
+      "3/1/2008"
+    ],
+    "definition": "*.[Next Rate Change Date]",
+    "datatype": "date",
+    "validation": {
+      "blank_when": "[Arm/Fixed Flag] != 'arm'",
+      "range": [
+        "2007-08-14",
+        "2009-12-30"
+      ]
+    }
+  },
+  "Next Payment Change Date": {
+    "examples": [
+      "7/1/2008",
+      "4/22/2008",
+      "12/1/2007",
+      "7/1/2009",
+      "4/1/2008"
+    ],
+    "definition": "*.[Next Payment Change Date]",
+    "datatype": "date",
+    "validation": {
+      "range": [
+        "2007-08-03",
+        "2010-02-05"
+      ]
+    }
+  },
+  "Rate Adjustment Period": {
+    "examples": [
+      "6",
+      "0",
+      "12"
+    ],
+    "definition": "*.[Rate Adjustment Period]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        10
+      ],
+      "limit_to_list": [
+        "0",
+        "12",
+        "6"
+      ]
+    }
+  },
+  "Payment Adjustment Period": {
+    "examples": [
+      "6",
+      "0",
+      "12"
+    ],
+    "definition": "*.[Payment Adjustment Period]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        10
+      ],
+      "limit_to_list": [
+        "0",
+        "12",
+        "6"
+      ]
+    }
+  },
+  "Margin": {
+    "examples": [
+      "6.3",
+      "6.64",
+      "6.25",
+      "0",
+      "6.75"
+    ],
+    "definition": "*.[Margin]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        7.9
+      ]
+    }
+  },
+  "Maximum Rate": {
+    "examples": [
+      "15.3",
+      "13.64",
+      "14.25",
+      "0",
+      "16.75"
+    ],
+    "definition": "*.[Maximum Rate]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        17.95
+      ]
+    }
+  },
+  "Minimum Rate": {
+    "examples": [
+      "6.3",
+      "7.64",
+      "8.25",
+      "0",
+      "9.75"
+    ],
+    "definition": "*.[Minimum Rate]",
+    "datatype": "number",
+    "validation": {
+      "required": 1,
+      "range": [
+        0,
+        11.575
+      ]
+    }
+  },
+  "Index Type": {
+    "examples": [
+      "6 MONTH LI",
+      "1 YEAR CMT"
+    ],
+    "definition": "*.[Index Type]",
+    "datatype": "text",
+    "validation": {
+      "limit_to_list": [
+        "1 year cmt",
+        "6 month li"
+      ]
+    }
+  },
+  "Initial Recast Period": {
+    "disabled": true,
+    "definition": "*.[Initial Recast Period]",
+    "datatype": "text"
+  },
+  "Min. Orig. P&I - option arms": {
+    "disabled": true,
+    "definition": "*.[Min. Orig. P&I - option arms]",
+    "datatype": "text"
+  },
+  "Min. Payment Rate": {
+    "disabled": true,
+    "definition": "*.[Min. Payment Rate]",
+    "datatype": "text"
+  },
+  "Annual Payment Cap": {
+    "examples": [
+      "0"
+    ],
+    "definition": "*.[Annual Payment Cap]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "limit_to_list": [
+        "0"
+      ]
+    }
+  },
+  "Negative Amortization Limit": {
+    "examples": [
+      "0"
+    ],
+    "definition": "*.[Negative Amortization Limit]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "limit_to_list": [
+        "0"
+      ]
+    }
+  },
+  "Recast Period": {
+    "disabled": true,
+    "definition": "*.[Recast Period]",
+    "datatype": "text"
+  },
+  "Teaser Rate": {
+    "disabled": true,
+    "definition": "*.[Teaser Rate]",
+    "datatype": "text"
+  },
+  "Lender Paid Mortgage Insurance Fee": {
+    "examples": [
+      "0"
+    ],
+    "definition": "*.[Lender Paid Mortgage Insurance Fee]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "limit_to_list": [
+        "0"
+      ]
+    }
+  },
+  "Lender Paid Mortgage Insurance Flag": {
+    "examples": [
+      "N"
+    ],
+    "definition": "*.[Lender Paid Mortgage Insurance Flag]",
+    "datatype": "boolean",
+    "validation": {
+      "required": 1
+    }
+  },
+  "Mortgage Insurance Company": {
+    "disabled": true,
+    "definition": "*.[Mortgage Insurance Company]",
+    "datatype": "text"
+  },
+  "Mortgage Insurance Coverage": {
+    "examples": [
+      "0"
+    ],
+    "definition": "*.[Mortgage Insurance Coverage]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "limit_to_list": [
+        "0"
+      ]
+    }
+  },
+  "Documentation Type": {
+    "examples": [
+      "STATED DOC",
+      "FULL DOC",
+      "LIMITED DOC"
+    ],
+    "definition": "*.[Documentation Type]",
+    "datatype": "text",
+    "validation": {
+      "required": 1,
+      "limit_to_list": [
+        "full doc",
+        "limited doc",
+        "stated doc"
+      ],
+      "length": [
+        8,
+        11
+      ]
+    }
+  },
+  "Occupancy Type": {
+    "examples": [
+      "INVESTOR",
+      "OWNER OCCUPIED",
+      "SECOND HOME"
+    ],
+    "definition": "*.[Occupancy Type]",
+    "datatype": "text",
+    "validation": {
+      "required": 1,
+      "limit_to_list": [
+        "investor",
+        "owner occupied",
+        "second home"
+      ],
+      "length": [
+        8,
+        14
+      ]
+    }
+  },
+  "Property Type": {
+    "examples": [
+      "SINGLE FAMILY",
+      "2 FAMILY",
+      "CONDO",
+      "3-4 FAMILY",
+      "PUD"
+    ],
+    "definition": "*.[Property Type]",
+    "datatype": "text",
+    "validation": {
+      "required": 1,
+      "limit_to_list": [
+        "2 family",
+        "3-4 family",
+        "condo",
+        "coop",
+        "pud",
+        "single family"
+      ],
+      "length": [
+        3,
+        13
+      ]
+    }
+  },
+  "Number Of Units": {
+    "examples": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "definition": "*.[Number Of Units]",
+    "datatype": "number",
+    "data_subtype": "integer",
+    "validation": {
+      "required": 1,
+      "limit_to_list": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    }
+  },
+  "Purpose Type": {
+    "examples": [
+      "CASHOUT REFI",
+      "RATE/TERM RE",
+      "PURCHASE"
+    ],
+    "definition": "*.[Purpose Type]",
+    "datatype": "text",
+    "validation": {
+      "required": 1,
+      "limit_to_list": [
+        "cashout refi",
+        "purchase",
+        "rate/term re"
+      ],
+      "length": [
+        8,
+        12
+      ]
+    }
+  },
+  "Product Description": {
+    "examples": [
+      "2 YR ARM",
+      "2 YR ARM BALLOON 40/30",
+      "2 YR ARM IO",
+      "FIXED",
+      "3 YR ARM BALLOON 40/30"
+    ],
+    "definition": "*.[Product Description]",
+    "datatype": "text",
+    "validation": {
+      "required": 1,
+      "length": [
+        5,
+        32
+      ]
+    }
+  },
+  "Arm/Fixed Flag": {
+    "examples": [
+      "ARM",
+      "FIXED"
+    ],
+    "definition": "*.[Arm/Fixed Flag]",
+    "datatype": "text",
+    "validation": {
+      "required": 1,
+      "limit_to_list": [
+        "arm",
+        "fixed"
+      ],
+      "length": [
+        3,
+        5
+      ]
+    }
+  },
+  "Balloon Flag": {
+    "examples": [
+      "N",
+      "Y"
+    ],
+    "definition": "*.[Balloon Flag]",
+    "datatype": "boolean",
+    "validation": {
+      "required": 1
+    }
+  },
+  "Originator": {
+    "examples": [
+      "HSBC Mortgage Services"
+    ],
+    "definition": "*.[Originator]",
+    "datatype": "text",
+    "validation": {
+      "required": 1,
+      "limit_to_list": [
+        "hsbc mortgage services"
+      ]
+    }
+  },
+  "Servicer": {
+    "examples": [
+      "Avelo"
+    ],
+    "definition": "*.[Servicer]",
+    "datatype": "text",
+    "validation": {
+      "required": 1,
+      "limit_to_list": [
+        "avelo"
+      ]
+    }
+  },
+  "Paystring 8/1/07 - 7/1/06": {
+    "examples": [
+      "'00000000000000",
+      "'00000001000000",
+      "'00010000000111",
+      "'00010000000000",
+      "'00100000000000"
+    ],
+    "definition": "*.[Paystring 8/1/07 - 7/1/06]",
+    "datatype": "text",
+    "validation": {
+      "required": 1
+    }
+  }
+}

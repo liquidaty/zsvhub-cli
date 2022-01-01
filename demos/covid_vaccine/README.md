@@ -1,7 +1,9 @@
 # Demo: COVID-19 data
 
 ## Overview
-We demonstrate how to use the ZSV Playground (https://zsvhub.com/playground/) to analyze publicly available COVID data.
+We demonstrate how to use the ZSV Playground (https://zsvhub.com/playground/, an online
+and more limited version of the ZSVHub
+to analyze publicly available COVID data.
  
 ## Topics covered
  
@@ -32,7 +34,7 @@ There are several ways to quickly assess the shape of your data and explore it i
 #### Basic overview of columns and basic data shape
 Use the `desc+` command to quickly see the "shape" of our data:
 ```
-zsv desc+ vaccine_data_global.csv
+desc+ vaccine_data_global.csv
 ```
 
 which will display something like the below (if using the CLI, you can pipe into `pretty` and adjust the width of the `zsv pretty` output with the `--width` option
@@ -56,7 +58,7 @@ e.g. `zsv pretty --width 150` to adjust the width to 150 characters):
 
 We can get additional information using the `--all` option:
 ```
-zsv desc+ --all vaccine_data_global.csv | zsv pretty
+desc+ --all vaccine_data_global.csv | zsv pretty
 ```
 
 which will display:
@@ -78,7 +80,7 @@ The `--json` option specifies JSON output. The maximum level of data shape detai
 is output when `--json` is used in conjunction with the `--all` option
 
 ```
-zsv desc+ --json --all vaccine_data_global.csv
+desc+ --json --all vaccine_data_global.csv
 ```
 
 #### Sampling
@@ -93,9 +95,9 @@ working with large files. `zsv` offers several methods for sampling:
 
 To create a simple stratification of each column of data, run:
 ```
-zsv desc+ --strat vaccine_data_global.csv
+desc+ --strat vaccine_data_global.csv
 ```
-(alternatively, you can produce this as a formatted XLSX file named 'simple_strat.xlsx' by running `zsv desc+ --strat simple_strat.xlsx vaccine_data_global.csv`)
+(alternatively, you can produce this as a formatted XLSX file named 'simple_strat.xlsx' by running `desc+ --strat simple_strat.xlsx vaccine_data_global.csv`)
 
 This creates a report with one table for each column in your data and with statistical information including count and various sums:
 
@@ -110,7 +112,7 @@ number of distinct values in the table does not exceed a threshold, which defaul
 
 To force those tables to show distinct values, we can use --distinct:
 ```
-zsv desc+ --strat --distinct Province_State --distinct Country_Region vaccine_data_global.csv | zsv pretty
+desc+ --strat --distinct Province_State --distinct Country_Region vaccine_data_global.csv | zsv pretty
 ```
 
 which makes our first two tables look like:
@@ -118,7 +120,7 @@ which makes our first two tables look like:
 
 which, as you can see, display the top ten distinct values (by count). If we wanted to, we could can expand that limit by setting the `--strat-distinct-rows` option to a higher value, e.g.:
 ```
-zsv desc+ --strat --distinct Province_State --distinct Country_Region --strat-distinct-rows 100 vaccine_data_global.csv | zsv pretty
+desc+ --strat --distinct Province_State --distinct Country_Region --strat-distinct-rows 100 vaccine_data_global.csv | zsv pretty
 ```
 
 ##### Joining other data
@@ -139,7 +141,7 @@ curl -LO https://raw.githubusercontent.com/liquidaty/zsvhub-cli/main/demos/covid
 
 Next, we need to incorporate this into our data.
 
-A quick look using `zsv desc+ world_pop_by_country.csv` and `zsv desc+ vaccine_data_global.csv` suggests that
+A quick look using `desc+ world_pop_by_country.csv` and `desc+ vaccine_data_global.csv` suggests that
 we can do so by joining the tables on Country Name and Country_Region, respectively, and extracting
 the '2018' column. Similarly, we can get the continent data by joining on Country_Number and UID.
 
@@ -178,7 +180,7 @@ zsv sql vaccine_data_global.csv world_pop_by_country.csv country-and-continent-c
 
 Let's take a look at our strat now:
 ```
-zsv desc+ --strat vaccine_data_global_with_population.csv
+desc+ --strat vaccine_data_global_with_population.csv
 ```
 
 Looking better-- our last table, in particular, is looking close to what we want:
@@ -207,9 +209,9 @@ mwhen used for stratification reporting, `zsv` will generate weighted average co
 
 Let's try it. If we're printing to console, we'll need to extend the `zsv pretty` default width as well with `--width`:
 ```
-zsv desc+ --strat --weight population vaccine_data_global_with_population.csv
+desc+ --strat --weight population vaccine_data_global_with_population.csv
 # to save as xlsx:
-zsv desc+ --strat mystrat.xlsx --weight population vaccine_data_global_with_population.csv
+desc+ --strat mystrat.xlsx --weight population vaccine_data_global_with_population.csv
 ```
 Now, our last table looks like:
 
@@ -232,7 +234,7 @@ can then be used to generate a report using the saved definition, as applied to 
 
 Let's save the last iteration of our report definition to "generated-strat-definition.json":
 ```
-zsv desc+ --weight population --strat-definition generated-strat-definition.json vaccine_data_global_with_population.csv
+desc+ --weight population --strat-definition generated-strat-definition.json vaccine_data_global_with_population.csv
 ```
 
 The schema for this definition can be found at
