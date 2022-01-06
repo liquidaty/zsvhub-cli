@@ -120,8 +120,12 @@ Additional options and details can be viewed by running `help validate`.
 
 To generate the validation report in this demo, we need two things:
 
-1. The data we want to run on. We'll use
-   [loans.csv](https://raw.githubusercontent.com/liquidaty/zsvhub-cli/main/demos/validation/loans.csv)
+1. The data we want to run on. For this demo, we will use loan data you can
+   load by running:
+
+```
+fetch -o loans.csv https://raw.githubusercontent.com/liquidaty/zsvhub-cli/main/demos/validation/loans.csv
+```
 
 1. A validation specification that defines our validation rules. We can either create validations ourselves, or find
 validations that someone else has created. Let's walk through each of these approaches.

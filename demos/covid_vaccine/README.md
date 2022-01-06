@@ -1,8 +1,7 @@
 # Demo: COVID-19 data
 
 ## Overview
-We demonstrate how to use the ZSV Playground (https://zsvhub.com/playground/, an online
-and more limited version of the ZSVHub
+We demonstrate how to use ZSV Playground (https://zsvhub.com/playground/),
 to analyze publicly available COVID data.
  
 ## Topics covered
@@ -21,6 +20,10 @@ Data used in this demo includes:
 * Country/continent data (https://pkgstore.datahub.io/JohnSnowLabs/country-and-continent-codes-list/)
 
 ## Getting the "vaccine" data set
+
+To get the data, click "Fetch from URL" and enter `https://raw.githubusercontent.com/liquidaty/zsvhub-cli/main/demos/covid_vaccine/vaccine_data_global.csv`
+
+If you have `curl` and would like to download locally, you can run:
 ```
 curl -LO https://raw.githubusercontent.com/liquidaty/zsvhub-cli/main/demos/covid_vaccine/vaccine_data_global.csv
 ```
@@ -37,8 +40,7 @@ Use the `desc+` command to quickly see the "shape" of our data:
 desc+ vaccine_data_global.csv
 ```
 
-which will display something like the below (if using the CLI, you can pipe into `pretty` and adjust the width of the `zsv pretty` output with the `--width` option
-e.g. `zsv pretty --width 150` to adjust the width to 150 characters):
+which will display:
 
 |#|Column name|Min Length|Max Length|Example 1|Example 2|Example 3|Example 4|Example 5|
 |--|--|--|--|--|--|--|--|--|
@@ -51,14 +53,11 @@ e.g. `zsv pretty --width 150` to adjust the width to 150 characters):
 |7|Report_Date_String|10|10|2021/08/14|2021/08/14|2021/08/14|2021/08/14|2021/08/14|
 |8|UID|1|6|4|8|12|20|24|
 
-(you can also use `pretty` to output in markdown format by adding a `--markdown` option as in `zsv pretty --markdown`)
-
-
 #### More detailed overview of columns and basic data shape
 
 We can get additional information using the `--all` option:
 ```
-desc+ --all vaccine_data_global.csv | zsv pretty
+desc+ --all vaccine_data_global.csv
 ```
 
 which will display:
@@ -84,13 +83,12 @@ desc+ --json --all vaccine_data_global.csv
 ```
 
 #### Sampling
-`zsv` is designed to be reasonably fast, but sampling is often useful when
-working with large files. `zsv` offers several methods for sampling:
+`select` offers several methods for sampling:
 - every nth row: `zsv select --sample-every 10` will return rows 1, 11, 21, ...
 - random selection based on a specified chance: `zsv select --sample-pct 10 vaccine_data_global.csv` will give each row a 10% chance of being selected
 - formulaic condition evaluated on a per-row basis: `zsv transform -w 'env("rand")>0.15 and *.[Province_State] != null' vaccine_data_global.csv` will give each row a 15% chance of being selected, but only if the "population" column in that row is greater than zero
 - with a sql query: `zsv sql "select * from data where abs(random() % 100) < 20" vaccine_data_global.csv` will give each row a 20% change of being selected
-
+- coming soon: randomly select a fixed number of rows
 #### Stratification of each data column
 
 To create a simple stratification of each column of data, run:
@@ -112,7 +110,7 @@ number of distinct values in the table does not exceed a threshold, which defaul
 
 To force those tables to show distinct values, we can use --distinct:
 ```
-desc+ --strat --distinct Province_State --distinct Country_Region vaccine_data_global.csv | zsv pretty
+desc+ --strat --distinct Province_State --distinct Country_Region vaccine_data_global.csv
 ```
 
 which makes our first two tables look like:
@@ -120,7 +118,7 @@ which makes our first two tables look like:
 
 which, as you can see, display the top ten distinct values (by count). If we wanted to, we could can expand that limit by setting the `--strat-distinct-rows` option to a higher value, e.g.:
 ```
-desc+ --strat --distinct Province_State --distinct Country_Region --strat-distinct-rows 100 vaccine_data_global.csv | zsv pretty
+desc+ --strat --distinct Province_State --distinct Country_Region --strat-distinct-rows 100 vaccine_data_global.csv
 ```
 
 ##### Joining other data
@@ -155,7 +153,9 @@ sources, or with a single source).
 
 In addition, since we are now bringing in country-level data, we will want to make sure we are only working with country-level data.
 
-Viewing with `zsv pretty vaccine_data_global.csv`, we can see we only want data with a blank Province_State--
+View that data (click 'view' in zsvhub.com/playground, or if working from the command line,
+use `zsv pretty vaccine_data_global.csv`),
+we can see we only want data with a blank Province_State--
 otherwise, the People_xxx columns seem to all be blank:
 
 |Province_State|Country_Region|Date|Doses_admin|People_partially_vaccinated|People_fully_vaccinated|Report_Date_String|UID|
@@ -207,11 +207,15 @@ In this case, we want to weight our data by population, and `zsv` can help us do
 this option is used for statistics, `zsv` will calculate correlations for each column vs the weight column, and
 mwhen used for stratification reporting, `zsv` will generate weighted average column statistics with the given weight.
 
-Let's try it. If we're printing to console, we'll need to extend the `zsv pretty` default width as well with `--width`:
+Let's try it:
 ```
 desc+ --strat --weight population vaccine_data_global_with_population.csv
+
+#  Note if we're on the command line (and not in the playground), we can use `zsv pretty` with a wider `--width` option:
+#    desc+ --strat --weight population vaccine_data_global_with_population.csv | zsv pretty --width 2000
+
 # to save as xlsx:
-desc+ --strat mystrat.xlsx --weight population vaccine_data_global_with_population.csv
+desc+ --strat -o mystrat.xlsx --weight population vaccine_data_global_with_population.csv
 ```
 Now, our last table looks like:
 
